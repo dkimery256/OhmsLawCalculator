@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class OhmsMain extends AppCompatActivity implements OnClickListener {
 
     TextView voltageLabel;
+    private String equationList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,19 @@ public class OhmsMain extends AppCompatActivity implements OnClickListener {
             // Switch will handle which equation list class to access
             switch(v.getId()){
                 case R.id.voltageLabel:
-                    Intent i = new Intent(this, EquationList.class);
-                    startActivity(i);
+
+                    equationList =  "V = R x I,V = P \u00F7 I,V = P \u221A R";
+                    Intent volts = new Intent(this, EquationList.class);
+                    volts.putExtra("equationList", equationList);
+                    startActivity(volts);
+                    break;
+                case R.id.resistanceLabel:
+                    equationList =  "V = R x I,V = P \u00F7 I,V = P \u221A R";
+
+                    Intent ohms  = new Intent(this, EquationList.class);
+                    ohms.putExtra("equationList", equationList);
+                    startActivity(ohms);
+                    break;
             }
         }
 

@@ -16,6 +16,7 @@ public class EquationList extends AppCompatActivity {
     ListView listView;
     int itemPosition;
     String itemValue;
+    String[] equationList = new String[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,18 @@ public class EquationList extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list);
 
         // Defined Array values to show in ListView
-        String[] values = new String[] { "V = R x I",
-                "V = P \u00F7 I",
-                "V = P \u221A R"
-        };
+        Bundle equationListData = getIntent().getExtras();
+        if(equationListData == null){
+            return;
+        }
+
+        String equations = equationListData.getString("equationList");
+
+        equationList = equations.split(",");
 
         // List Item adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.list_item_layout, R.id.text, values);
+                R.layout.list_item_layout, R.id.text, equationList);
 
         // Assign adapter to ListView
         listView.setAdapter(adapter);
