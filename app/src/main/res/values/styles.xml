@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorControlNormal">@color/OldLace</item>
+        <item name="colorControlActivated">@color/green</item>
+        <item name="colorControlHighlight">@color/green</item>
+    </style>
+
+    <style name="mainDescription">
+        <item name="android:textColor">@color/OldLace</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="solveEquations">
+        <item name="android:textColor">@color/OldLace</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name ="mainLabel">
+        <item name="android:textSize">60sp</item>
+        <item name="android:textColor">@color/Indigo</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="listItem">
+        <item name="android:textColor">@color/OldLace</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="equationView">
+        <item name="android:textColor">@color/OldLace</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+</resources>
