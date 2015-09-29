@@ -65,7 +65,7 @@
         android:id="@+id/ohmTriangleImage"
         android:src="@drawable/ohm_triangle_image"
         android:contentDescription="@string/ohm_triangle_horizontal"
-        android:layout_gravity="right|center_vertical"
+        android:layout_gravity="end|center_vertical"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/voltMessage"
@@ -77,9 +77,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/voltageLabel"
         android:text="@string/voltage_label"
-        android:layout_alignLeft="@+id/ohmTriangleImage"
+        android:layout_alignStart="@+id/ohmTriangleImage"
         android:layout_alignTop="@+id/ohmTriangleImage"
-        android:layout_alignRight="@+id/ohmTriangleImage"
+        android:layout_alignEnd="@+id/ohmTriangleImage"
         android:gravity="center"
         android:layout_marginTop="55dp" />
 
@@ -89,24 +89,26 @@
         android:layout_height="wrap_content"
         android:id="@+id/resistanceLabel"
         android:text="@string/resistance_label"
-        android:layout_alignLeft="@+id/ohmTriangleImage"
+        android:layout_alignStart="@+id/ohmTriangleImage"
         android:layout_alignTop="@+id/ohmTriangleImage"
-        android:layout_alignRight="@+id/ohmTriangleImage"
+        android:layout_alignEnd="@+id/ohmTriangleImage"
         android:gravity="center"
-        android:layout_marginRight="110dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="195dp"
         android:layout_marginTop="155dp" />
 
     <TextView
         style="@style/mainLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/curentLabel"
+        android:id="@+id/currentLabel"
         android:text="@string/current_label"
-        android:layout_alignLeft="@+id/ohmTriangleImage"
+        android:layout_alignStart="@+id/ohmTriangleImage"
         android:layout_alignTop="@+id/ohmTriangleImage"
-        android:layout_alignRight="@+id/ohmTriangleImage"
+        android:layout_alignEnd="@+id/ohmTriangleImage"
         android:gravity="center"
-        android:layout_marginLeft="95dp"
+        android:layout_marginStart="175dp"
+        android:layout_marginEnd="75dp"
         android:layout_marginTop="155dp" />
 
 </RelativeLayout>

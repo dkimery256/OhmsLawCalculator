@@ -34,6 +34,7 @@ public class EquationList extends AppCompatActivity {
 
         String equations = equationListData.getString("equationList");
 
+        //Split used to spilt comma delimited string into string array
         equationList = equations.split(",");
 
         // List Item adapter
@@ -57,7 +58,7 @@ public class EquationList extends AppCompatActivity {
                 itemValue = (String) listView.getItemAtPosition(position);
 
                 selectEquation();
-                  }
+            }
 
         });
     }
@@ -86,12 +87,19 @@ public class EquationList extends AppCompatActivity {
 
     //Selected equation is put into and intent and opened in Solve Equation class
     public void selectEquation(){
-
+        //Assign each string equation element to its own variable
+        String equation1 = equationList[0];
+        String equation2 = equationList[1];
+        String equation3 = equationList[2];
+        Intent i = new Intent(this, SolveEquation.class);
         if (itemPosition == 0) {
-            final String equation = "V = R x I";
-
-            Intent i = new Intent(this, SolveEquation.class);
-            i.putExtra("equation", equation);
+            i.putExtra("equation", equation1);
+            startActivity(i);
+        }else if(itemPosition == 1){
+            i.putExtra("equation", equation2);
+            startActivity(i);
+        }else if(itemPosition == 2){
+            i.putExtra("equation", equation3);
             startActivity(i);
         }
     }
