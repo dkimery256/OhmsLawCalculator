@@ -276,7 +276,7 @@ public class SolveEquation extends AppCompatActivity implements
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_DONE ||
                 actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
-
+            //Call thread method to check inputs for the equation
             calculateEquation();
         }
         return false;
