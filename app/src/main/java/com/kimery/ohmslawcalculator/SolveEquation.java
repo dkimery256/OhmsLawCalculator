@@ -221,7 +221,9 @@ public class SolveEquation extends AppCompatActivity implements
                 Double secondValueNum = null;
                 int spinnerPosition1;
                 int spinnerPosition2;
-
+                double reg = 1;
+                double milli = 0.001;
+                double micro = 0.000001;
                 while(!selected){
                      switch (equation) {
                         case "V = R x I":
