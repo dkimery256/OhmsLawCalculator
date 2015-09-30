@@ -60,13 +60,13 @@ public class OhmsMain extends AppCompatActivity implements OnClickListener {
                 //Use comma delimited string for the formulas to split into arrays later
             switch(v.getId()){
                 case R.id.voltageLabel:
-                    equationList =  "V = R x I,V = P \u00F7 I,V = P \u221A R";
+                    equationList =  "V = R x I,V = P ÷ I,V = √P x R";
                     Intent volts = new Intent(this, EquationList.class);
                     volts.putExtra("equationList", equationList);
                     startActivity(volts);
                     break;
                 case R.id.resistanceLabel:
-                    equationList =  "R = V ÷ I,R = V\u00B2 \u00F7 I,R = V ÷ I";
+                    equationList =  "R = V ÷ I,R = V² ÷ P,R = P ÷ I²";
                     Intent ohms  = new Intent(this, EquationList.class);
                     ohms.putExtra("equationList", equationList);
                     startActivity(ohms);

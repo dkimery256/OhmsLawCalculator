@@ -37,4 +37,11 @@
         <item>mA</item>
         <item>μA</item>
     </string-array>
+
+    <string-array name="power_value_array">
+        <item>Select</item>
+        <item>W</item>
+        <item>mW</item>
+        <item>μW</item>
+    </string-array>
 </resources>

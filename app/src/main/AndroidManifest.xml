@@ -22,7 +22,8 @@
         </activity>
         <activity
             android:name=".SolveEquation"
-            android:label="@string/title_activity_solve_equation" >
+            android:label="@string/title_activity_solve_equation"
+            android:windowSoftInputMode="stateHidden">
         </activity>
     </application>
 
