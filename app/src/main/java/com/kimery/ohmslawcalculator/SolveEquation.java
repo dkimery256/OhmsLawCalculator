@@ -15,6 +15,9 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class SolveEquation extends AppCompatActivity implements
         OnEditorActionListener, OnItemSelectedListener {
 
@@ -211,7 +214,7 @@ public class SolveEquation extends AppCompatActivity implements
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                boolean selected = false;
+                boolean allSelected = false;
                 String firstValue;
                 String secondValue;
                 String update;
@@ -221,40 +224,37 @@ public class SolveEquation extends AppCompatActivity implements
                 Double secondValueNum = null;
                 int spinnerPosition1;
                 int spinnerPosition2;
-                double reg = 1;
-                double milli = 0.001;
-                double micro = 0.000001;
-                while(!selected){
-                     switch (equation) {
-                        case "V = R x I":
-                            firstValue = value1.getText().toString();
-                            secondValue = value2.getText().toString();
-                            spinnerPosition1 = spinnerValue1.getSelectedItemPosition();
-                            spinnerPosition2 = spinnerValue2.getSelectedItemPosition();
-                            spinnerItem1 = spinnerValue1.getSelectedItem().toString();
-                            spinnerItem2 = spinnerValue2.getSelectedItem().toString();
-                            if(!firstValue.equals(""))firstValueNum = Double.parseDouble(firstValue);
-                            if(!secondValue.equals(""))secondValueNum = Double.parseDouble(secondValue);
-                            if(firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
-                                update = "V = " + firstValueNum + spinnerItem1 + " x I";
-                                updateUI(update);
-                                selected = true;
-                            }
-                            if(firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
-                                update = "V = R x " + secondValueNum + spinnerItem2;
-                                updateUI(update);
-                                selected = true;
-                            }
-                            if(firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
-                                    && spinnerPosition2 > 0) {
-                                double volts = firstValueNum * secondValueNum;
-                                update = volts + " = " + firstValueNum + spinnerItem1 + " x " +
-                                        secondValueNum + spinnerItem2;
-                                updateUI(update);
-                                selected = true;
-                            }
-                            break;
-                     }
+                DecimalFormat number = new DecimalFormat("###.###");
+
+                switch (equation) {
+                    case "V = R x I":
+                       while(!allSelected) {
+                           firstValue = value1.getText().toString();
+                           secondValue = value2.getText().toString();
+                           spinnerPosition1 = spinnerValue1.getSelectedItemPosition();
+                           spinnerPosition2 = spinnerValue2.getSelectedItemPosition();
+                           spinnerItem1 = spinnerValue1.getSelectedItem().toString();
+                           spinnerItem2 = spinnerValue2.getSelectedItem().toString();
+                           if (!firstValue.equals(""))
+                               firstValueNum = Double.parseDouble(firstValue);
+                           if (!secondValue.equals(""))
+                               secondValueNum = Double.parseDouble(secondValue);
+
+                           if (firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
+                               update = "V = " + firstValue + spinnerItem1 + " x I";
+                               updateUI(update);
+                           } else if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
+                               update = "V = R x " + secondValue + spinnerItem2;
+                               updateUI(update);
+                           } else if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
+                                   && spinnerPosition2 > 0) {
+                               String volts = solveEquation(spinnerPosition1, spinnerPosition2, firstValueNum, secondValueNum);
+                               update = volts + " = " + firstValue + spinnerItem1 + " x " +
+                                       secondValue + spinnerItem2;
+                               updateUI(update);
+                           }
+                           break;
+                       }
                 }
             }
         };
@@ -269,6 +269,94 @@ public class SolveEquation extends AppCompatActivity implements
             }
         });
 
+    }
+    //solve equation based on values entered
+    public String solveEquation(int position1, int position2, double value1, double value2 ){
+        double answer = 0;
+        double milli = 0.001;
+        double micro = 0.000001;
+        String answerStr = "";
+        String type;
+
+        //choose correct notation
+        switch (position1){
+            case 2:
+                value1 *= milli;
+                break;
+            case 3:
+                value1 *= micro;
+                break;
+        }
+        switch (position2){
+            case 2:
+                value2 *= milli;
+                break;
+            case 3:
+                value2 *= micro;
+                break;
+        }
+        //Start solving for answer
+        switch (equation) {
+            case "V = R x I":
+                type = "V";
+                answer = value1 * value2;
+                //revert notation
+                answerStr = revertNotation(answer, type);
+        }
+        return answerStr;
+    }
+    //Method revert the answer back to proper notation.
+    public String revertNotation(double answer, String type) {
+        int zeroCheck = 0;
+        double milli = 0.001;
+        double micro = 0.000001;
+        char index = ' ';
+
+        //number format to get rid of scientific notation
+        NumberFormat number = new DecimalFormat("###.##################");
+        String answerStr = number.format(answer);
+
+        //If answer is less than 1 start answer notation
+        if (answer < 1){
+
+            //Count index of decimal places to determine answer notation value
+            for (int i = 0; i < answerStr.length(); i++) {
+                index = answerStr.charAt(i);
+                if(index == 48 || index == 46) {
+                    zeroCheck++;
+                }else{
+                   if(zeroCheck == 1) {
+                       break;
+                   }else{
+                       zeroCheck --;
+                       break;
+                   }
+                }
+            }
+            //Add correct notation symbols
+            if (zeroCheck >= 1 && zeroCheck <= 3){
+                answer /= milli;
+                answerStr = number.format(answer);
+                answerStr = answerStr + "m";
+            }
+            if (zeroCheck > 3) {
+                answer /= micro;
+                answerStr = number.format(answer);
+                answerStr = answerStr + "μ";
+            }
+
+        }
+        switch(type){
+            case "V":
+                answerStr = answerStr+"V";
+                break;
+            case "A":
+                answerStr = answerStr+"A";
+                break;
+            case "R":
+                answerStr = answerStr+"Ω";
+        }
+        return answerStr;
     }
     ///////////////////
     //Event Handlers//

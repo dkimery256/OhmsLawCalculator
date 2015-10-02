@@ -26,9 +26,9 @@
 
     <string-array name="ohm_value_array">
         <item>Select</item>
-        <item>Ohms</item>
-        <item>mOhms</item>
-        <item>μOhms</item>
+        <item>Ω</item>
+        <item>mΩ</item>
+        <item>μΩ</item>
     </string-array>
 
     <string-array name="current_value_array">
