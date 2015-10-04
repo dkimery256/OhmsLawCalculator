@@ -192,7 +192,7 @@ public class SolveEquation extends AppCompatActivity implements
                         android.R.layout.simple_spinner_dropdown_item);
                 spinnerValue2.setAdapter(adapter2);
                 break;
-            case "I = √P ÷ R\"":
+            case "I = √P ÷ R":
                 adapter1 = ArrayAdapter.createFromResource(
                         this, R.array.power_value_array, android.R.layout.simple_spinner_item);
                 adapter1.setDropDownViewResource(
@@ -239,23 +239,247 @@ public class SolveEquation extends AppCompatActivity implements
                                firstValueNum = Double.parseDouble(firstValue);
                            if (!secondValue.equals(""))
                                secondValueNum = Double.parseDouble(secondValue);
-
                            if (firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
                                update = "V = " + firstValue + spinnerItem1 + " x I";
                                updateUI(update);
-                           } else if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
+                           }if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
                                update = "V = R x " + secondValue + spinnerItem2;
                                updateUI(update);
-                           } else if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
+                           }if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
                                    && spinnerPosition2 > 0) {
                                String volts = solveEquation(spinnerPosition1, spinnerPosition2, firstValueNum, secondValueNum);
                                update = volts + " = " + firstValue + spinnerItem1 + " x " +
                                        secondValue + spinnerItem2;
                                updateUI(update);
+                               allSelected = true;
                            }
-                           break;
                        }
-                }
+                        break;
+                    case "V = P ÷ I":
+                        while(!allSelected) {
+                            firstValue = value1.getText().toString();
+                            secondValue = value2.getText().toString();
+                            spinnerPosition1 = spinnerValue1.getSelectedItemPosition();
+                            spinnerPosition2 = spinnerValue2.getSelectedItemPosition();
+                            spinnerItem1 = spinnerValue1.getSelectedItem().toString();
+                            spinnerItem2 = spinnerValue2.getSelectedItem().toString();
+                            if (!firstValue.equals(""))
+                                firstValueNum = Double.parseDouble(firstValue);
+                            if (!secondValue.equals(""))
+                                secondValueNum = Double.parseDouble(secondValue);
+                            if (firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
+                                update = "V = " + firstValue + spinnerItem1 + " ÷ I";
+                                updateUI(update);
+                            }if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
+                                update = "V = P ÷ " + secondValue + spinnerItem2;
+                                updateUI(update);
+                            }if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
+                                    && spinnerPosition2 > 0) {
+                                String volts = solveEquation(spinnerPosition1, spinnerPosition2, firstValueNum, secondValueNum);
+                                update = volts + " = " + firstValue + spinnerItem1 + " ÷ " +
+                                        secondValue + spinnerItem2;
+                                updateUI(update);
+                                allSelected = true;
+                            }
+                        }
+                        break;
+                    case "V = √P x R":
+                        while(!allSelected) {
+                            firstValue = value1.getText().toString();
+                            secondValue = value2.getText().toString();
+                            spinnerPosition1 = spinnerValue1.getSelectedItemPosition();
+                            spinnerPosition2 = spinnerValue2.getSelectedItemPosition();
+                            spinnerItem1 = spinnerValue1.getSelectedItem().toString();
+                            spinnerItem2 = spinnerValue2.getSelectedItem().toString();
+                            if (!firstValue.equals(""))
+                                firstValueNum = Double.parseDouble(firstValue);
+                            if (!secondValue.equals(""))
+                                secondValueNum = Double.parseDouble(secondValue);
+                            if (firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
+                                update = "V = " + firstValue + spinnerItem1 + " x R";
+                                updateUI(update);
+                            }if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
+                                update = "V = √P x " + secondValue + spinnerItem2;
+                                updateUI(update);
+                            }if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
+                                    && spinnerPosition2 > 0) {
+                                String volts = solveEquation(spinnerPosition1, spinnerPosition2, firstValueNum, secondValueNum);
+                                update = volts + " = " + firstValue + spinnerItem1 + " x " +
+                                        secondValue + spinnerItem2;
+                                updateUI(update);
+                                allSelected = true;
+                            }
+                        }
+                        break;
+                    case "R = V ÷ I":
+                        while(!allSelected) {
+                            firstValue = value1.getText().toString();
+                            secondValue = value2.getText().toString();
+                            spinnerPosition1 = spinnerValue1.getSelectedItemPosition();
+                            spinnerPosition2 = spinnerValue2.getSelectedItemPosition();
+                            spinnerItem1 = spinnerValue1.getSelectedItem().toString();
+                            spinnerItem2 = spinnerValue2.getSelectedItem().toString();
+                            if (!firstValue.equals(""))
+                                firstValueNum = Double.parseDouble(firstValue);
+                            if (!secondValue.equals(""))
+                                secondValueNum = Double.parseDouble(secondValue);
+                            if (firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
+                                update = "R = " + firstValue + spinnerItem1 + " ÷ I";
+                                updateUI(update);
+                            }if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
+                                update = "R = V ÷ " + secondValue + spinnerItem2;
+                                updateUI(update);
+                            }if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
+                                    && spinnerPosition2 > 0) {
+                                String ohms = solveEquation(spinnerPosition1, spinnerPosition2, firstValueNum, secondValueNum);
+                                update = ohms + " = " + firstValue + spinnerItem1 + " x " +
+                                        secondValue + spinnerItem2;
+                                updateUI(update);
+                                allSelected = true;
+                            }
+                        }
+                        break;
+                    case "R = V² ÷ P":
+                        while(!allSelected) {
+                            firstValue = value1.getText().toString();
+                            secondValue = value2.getText().toString();
+                            spinnerPosition1 = spinnerValue1.getSelectedItemPosition();
+                            spinnerPosition2 = spinnerValue2.getSelectedItemPosition();
+                            spinnerItem1 = spinnerValue1.getSelectedItem().toString();
+                            spinnerItem2 = spinnerValue2.getSelectedItem().toString();
+                            if (!firstValue.equals(""))
+                                firstValueNum = Double.parseDouble(firstValue);
+                            if (!secondValue.equals(""))
+                                secondValueNum = Double.parseDouble(secondValue);
+                            if (firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
+                                update = "R = " + firstValue + spinnerItem1 + " ÷ P";
+                                updateUI(update);
+                            }if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
+                                update = "R = V² ÷ " + secondValue + spinnerItem2;
+                                updateUI(update);
+                            }if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
+                                    && spinnerPosition2 > 0) {
+                                String ohms = solveEquation(spinnerPosition1, spinnerPosition2, firstValueNum, secondValueNum);
+                                update = ohms + " = " + firstValue + spinnerItem1 + " ÷ " +
+                                        secondValue + spinnerItem2;
+                                updateUI(update);
+                                allSelected = true;
+                            }
+                        }
+                        break;
+                    case "R = P ÷ I²":
+                        while(!allSelected) {
+                            firstValue = value1.getText().toString();
+                            secondValue = value2.getText().toString();
+                            spinnerPosition1 = spinnerValue1.getSelectedItemPosition();
+                            spinnerPosition2 = spinnerValue2.getSelectedItemPosition();
+                            spinnerItem1 = spinnerValue1.getSelectedItem().toString();
+                            spinnerItem2 = spinnerValue2.getSelectedItem().toString();
+                            if (!firstValue.equals(""))
+                                firstValueNum = Double.parseDouble(firstValue);
+                            if (!secondValue.equals(""))
+                                secondValueNum = Double.parseDouble(secondValue);
+                            if (firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
+                                update = "R = " + firstValue + spinnerItem1 + " ÷ I²";
+                                updateUI(update);
+                            }if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
+                                update = "R = P ÷ " + secondValue + spinnerItem2;
+                                updateUI(update);
+                            }if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
+                                    && spinnerPosition2 > 0) {
+                                String ohms = solveEquation(spinnerPosition1, spinnerPosition2, firstValueNum, secondValueNum);
+                                update = ohms + " = " + firstValue + spinnerItem1 + " ÷ " +
+                                        secondValue + spinnerItem2;
+                                updateUI(update);
+                                allSelected = true;
+                            }
+                        }
+                        break;
+                    case "I = V ÷ R":
+                        while(!allSelected) {
+                            firstValue = value1.getText().toString();
+                            secondValue = value2.getText().toString();
+                            spinnerPosition1 = spinnerValue1.getSelectedItemPosition();
+                            spinnerPosition2 = spinnerValue2.getSelectedItemPosition();
+                            spinnerItem1 = spinnerValue1.getSelectedItem().toString();
+                            spinnerItem2 = spinnerValue2.getSelectedItem().toString();
+                            if (!firstValue.equals(""))
+                                firstValueNum = Double.parseDouble(firstValue);
+                            if (!secondValue.equals(""))
+                                secondValueNum = Double.parseDouble(secondValue);
+                            if (firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
+                                update = "I = " + firstValue + spinnerItem1 + " ÷ R";
+                                updateUI(update);
+                            }if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
+                                update = "I = V ÷ " + secondValue + spinnerItem2;
+                                updateUI(update);
+                            }if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
+                                    && spinnerPosition2 > 0) {
+                                String ohms = solveEquation(spinnerPosition1, spinnerPosition2, firstValueNum, secondValueNum);
+                                update = ohms + " = " + firstValue + spinnerItem1 + " ÷ " +
+                                        secondValue + spinnerItem2;
+                                updateUI(update);
+                                allSelected = true;
+                            }
+                        }
+                        break;
+                    case "I = P ÷ V":
+                        while(!allSelected) {
+                            firstValue = value1.getText().toString();
+                            secondValue = value2.getText().toString();
+                            spinnerPosition1 = spinnerValue1.getSelectedItemPosition();
+                            spinnerPosition2 = spinnerValue2.getSelectedItemPosition();
+                            spinnerItem1 = spinnerValue1.getSelectedItem().toString();
+                            spinnerItem2 = spinnerValue2.getSelectedItem().toString();
+                            if (!firstValue.equals(""))
+                                firstValueNum = Double.parseDouble(firstValue);
+                            if (!secondValue.equals(""))
+                                secondValueNum = Double.parseDouble(secondValue);
+                            if (firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
+                                update = "I = " + firstValue + spinnerItem1 + " ÷ V";
+                                updateUI(update);
+                            }if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
+                                update = "I = R ÷ " + secondValue + spinnerItem2;
+                                updateUI(update);
+                            }if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
+                                    && spinnerPosition2 > 0) {
+                                String ohms = solveEquation(spinnerPosition1, spinnerPosition2, firstValueNum, secondValueNum);
+                                update = ohms + " = " + firstValue + spinnerItem1 + " ÷ " +
+                                        secondValue + spinnerItem2;
+                                updateUI(update);
+                                allSelected = true;
+                            }
+                        }
+                        break;
+                    case "I = √P ÷ R":
+                        while(!allSelected) {
+                            firstValue = value1.getText().toString();
+                            secondValue = value2.getText().toString();
+                            spinnerPosition1 = spinnerValue1.getSelectedItemPosition();
+                            spinnerPosition2 = spinnerValue2.getSelectedItemPosition();
+                            spinnerItem1 = spinnerValue1.getSelectedItem().toString();
+                            spinnerItem2 = spinnerValue2.getSelectedItem().toString();
+                            if (!firstValue.equals(""))
+                                firstValueNum = Double.parseDouble(firstValue);
+                            if (!secondValue.equals(""))
+                                secondValueNum = Double.parseDouble(secondValue);
+                            if (firstValueNum != null && secondValueNum == null && spinnerPosition1 > 0) {
+                                update = "I = " + firstValue + spinnerItem1 + " ÷ R";
+                                updateUI(update);
+                            }if (firstValueNum == null && secondValueNum != null && spinnerPosition2 > 0) {
+                                update = "I = √P ÷ " + secondValue + spinnerItem2;
+                                updateUI(update);
+                            }if (firstValueNum != null && secondValueNum != null && spinnerPosition1 > 0
+                                    && spinnerPosition2 > 0) {
+                                String ohms = solveEquation(spinnerPosition1, spinnerPosition2, firstValueNum, secondValueNum);
+                                update = ohms + " = " + firstValue + spinnerItem1 + " ÷ " +
+                                        secondValue + spinnerItem2;
+                                updateUI(update);
+                                allSelected = true;
+                            }
+                        }
+                        break;
+                    }
             }
         };
         new Thread(r).start();
@@ -302,6 +526,56 @@ public class SolveEquation extends AppCompatActivity implements
                 answer = value1 * value2;
                 //revert notation
                 answerStr = revertNotation(answer, type);
+                break;
+            case "V = P ÷ I":
+                type = "V";
+                answer = value1 / value2;
+                //revert notation
+                answerStr = revertNotation(answer, type);
+                break;
+            case "V = √P x R":
+                type = "V";
+                answer = Math.sqrt(value1) / value2;
+                //revert notation
+                answerStr = revertNotation(answer, type);
+                break;
+            case "R = V ÷ I":
+                type = "R";
+                answer = value1 / value2;
+                //revert notation
+                answerStr = revertNotation(answer, type);
+                break;
+            case "R = V² ÷ P":
+                type = "R";
+                answer = Math.pow(value1, 2) / value2;
+                //revert notation
+                answerStr = revertNotation(answer, type);
+                break;
+            case "R = P ÷ I²":
+                type = "R";
+                answer =  value1 / Math.pow(value2, 2);
+                //revert notation
+                answerStr = revertNotation(answer, type);
+                break;
+            case "I = V ÷ R":
+                type = "I";
+                answer =  value1 / value2;
+                //revert notation
+                answerStr = revertNotation(answer, type);
+                break;
+            case "I = P ÷ V":
+                type = "I";
+                answer =  value1 / value2;
+                //revert notation
+                answerStr = revertNotation(answer, type);
+                break;
+            case "I = √P ÷ R":
+                type = "I";
+                answer =  Math.sqrt(value1) / value2;
+                //revert notation
+                answerStr = revertNotation(answer, type);
+                break;
+
         }
         return answerStr;
     }
@@ -312,8 +586,9 @@ public class SolveEquation extends AppCompatActivity implements
         double micro = 0.000001;
         char index = ' ';
 
-        //number format to get rid of scientific notation
-        NumberFormat number = new DecimalFormat("###.##################");
+        //Number format to get rid of scientific notation
+        NumberFormat number = new DecimalFormat("###.############");
+        NumberFormat answerNumber = new DecimalFormat("###.###");
         String answerStr = number.format(answer);
 
         //If answer is less than 1 start answer notation
@@ -336,15 +611,16 @@ public class SolveEquation extends AppCompatActivity implements
             //Add correct notation symbols
             if (zeroCheck >= 1 && zeroCheck <= 3){
                 answer /= milli;
-                answerStr = number.format(answer);
+                answerStr = answerNumber.format(answer);
                 answerStr = answerStr + "m";
             }
             if (zeroCheck > 3) {
                 answer /= micro;
-                answerStr = number.format(answer);
+                answerStr = answerNumber.format(answer);
                 answerStr = answerStr + "μ";
             }
-
+        }else {
+            answerStr = answerNumber.format(answer);
         }
         switch(type){
             case "V":
@@ -356,6 +632,7 @@ public class SolveEquation extends AppCompatActivity implements
             case "R":
                 answerStr = answerStr+"Ω";
         }
+
         return answerStr;
     }
     ///////////////////
