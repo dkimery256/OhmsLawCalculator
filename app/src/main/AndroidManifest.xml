@@ -23,7 +23,11 @@
         <activity
             android:name=".SolveEquation"
             android:label="@string/title_activity_solve_equation"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".SolvedEquations"
+            android:label="@string/title_activity_solved_equations">
         </activity>
     </application>
 

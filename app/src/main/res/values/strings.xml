@@ -44,4 +44,10 @@
         <item>mW</item>
         <item>μW</item>
     </string-array>
+    <string name="title_activity_saved_equations">SavedEquations</string>
+    <string name="title_activity_solved_equations">SolvedEquations</string>
+    <string name="solved_equations_label">Solved Equations:</string>
+    <string name="view_saved_equation_button">View Saved Equations</string>
+    <string name="save_equation_button">Save Equation</string>
+    <string name="delete_equation">Delete Equation</string>
 </resources>

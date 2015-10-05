@@ -92,10 +92,22 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/viewSavedEquationButton"
             android:layout_below="@id/equationView"
-            android:layout_marginTop="290dp"
-            android:text="Save Equation"
-            android:textStyle="bold"/>
+            android:layout_marginTop="100dp"
+            android:text="@string/view_saved_equation_button"
+            android:textStyle="bold"
+            android:onClick="viewSavedEquations"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/saveEquationButton"
+            android:layout_below="@id/equationView"
+            android:layout_marginTop="140dp"
+            android:text="@string/save_equation_button"
+            android:textStyle="bold"
+            android:onClick="saveEquation"/>
 
     </RelativeLayout>
 

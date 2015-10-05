@@ -23,6 +23,7 @@ public class EquationList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equation_list);
 
+
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
 
@@ -33,7 +34,18 @@ public class EquationList extends AppCompatActivity {
         }
 
         String equations = equationListData.getString("equationList");
-
+        //Set correct title
+        switch (equations){
+            case "V = R x I,V = P ÷ I,V = √P x R":
+                setTitle("Voltage Equations");
+                break;
+            case "R = V ÷ I,R = V² ÷ P,R = P ÷ I²":
+                setTitle("Resistance Equations");
+                break;
+            case "I = V ÷ R,I = P ÷ V,I = √P ÷ R":
+                setTitle("Current Equations");
+                break;
+        }
         //Split used to spilt comma delimited string into string array
         equationList = equations.split(",");
 
@@ -56,6 +68,17 @@ public class EquationList extends AppCompatActivity {
 
                 // ListView Clicked item value
                 itemValue = (String) listView.getItemAtPosition(position);
+
+                for(int i=0; i<parent.getChildCount(); i++)
+                {
+                    if(i == position){
+                        parent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.lime));
+
+                    }else{
+                        parent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.navy));
+                    }
+
+                }
 
                 selectEquation();
             }

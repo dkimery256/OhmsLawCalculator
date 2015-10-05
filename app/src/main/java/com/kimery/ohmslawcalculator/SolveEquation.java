@@ -1,5 +1,6 @@
 package com.kimery.ohmslawcalculator;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,10 +11,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -27,6 +30,9 @@ public class SolveEquation extends AppCompatActivity implements
     private Spinner spinnerValue2;
     private EditText value1;
     private EditText value2;
+    private Button veiwSavedEquation;
+    private Button saveEquation;
+    SolvedEquationsDB dbHandler = new SolvedEquationsDB(this, null, null, 1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,8 @@ public class SolveEquation extends AppCompatActivity implements
         spinnerValue2 = (Spinner) findViewById(R.id.spinnerValue2);
         value1 = (EditText) findViewById(R.id.value1);
         value2 = (EditText) findViewById(R.id.value2);
+        veiwSavedEquation = (Button) findViewById(R.id.viewSavedEquationButton);
+        saveEquation = (Button) findViewById(R.id.saveEquationButton);
 
         //Set listeners for instance variables
         spinnerValue1.setOnItemSelectedListener(this);
@@ -47,6 +55,7 @@ public class SolveEquation extends AppCompatActivity implements
         value1.setImeOptions(EditorInfo.IME_ACTION_DONE);
         value2.setOnEditorActionListener(this);
         value2.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
         //Get data from equation list class
         Bundle equationData = getIntent().getExtras();
         if(equationData == null){
@@ -59,6 +68,7 @@ public class SolveEquation extends AppCompatActivity implements
 
         //Set values of spinners
         setValues(equation);
+        calculateEquation();
 
     }
 
@@ -626,7 +636,7 @@ public class SolveEquation extends AppCompatActivity implements
             case "V":
                 answerStr = answerStr+"V";
                 break;
-            case "A":
+            case "I":
                 answerStr = answerStr+"A";
                 break;
             case "R":
@@ -644,7 +654,7 @@ public class SolveEquation extends AppCompatActivity implements
         if (actionId == EditorInfo.IME_ACTION_DONE ||
                 actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
             //Call thread method to check inputs for the equation
-            calculateEquation();
+            //calculateEquation();
         }
         return false;
     }
@@ -657,5 +667,17 @@ public class SolveEquation extends AppCompatActivity implements
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // Do nothing
+    }
+    //Call the data base save equation method
+    public void saveEquation(View view) {
+        String savedEquation = equationView.getText().toString();
+        dbHandler.getEquations();
+        dbHandler.saveEquation(savedEquation);
+        Toast.makeText(getApplicationContext(), "Equation Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    public void viewSavedEquations(View view) {
+        Intent i = new Intent(this, SolvedEquations.class);
+        startActivity(i);
     }
 }
