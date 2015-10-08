@@ -23,45 +23,42 @@ public class SolvedEquationsDB extends SQLiteOpenHelper{
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
-    public static String getTableSavedEquations() {
-        return TABLE_SAVED_EQUATIONS;
-    }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
             String CREATE_TABLE =
-                    "CREATE TABLE "    + getTableSavedEquations() + "(" +
-                            getColumnId() + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                            getColumnEquation() + " CHAR);";
+                    "CREATE TABLE "    + TABLE_SAVED_EQUATIONS + "(" +
+                            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            COLUMN_EQUATION + " CHAR);";
 
             db.execSQL(CREATE_TABLE);
-        String insert = "INSERT INTO " + getTableSavedEquations() + " VALUES (1, '20V = 2Ω * 2A')";
+        String insert = "INSERT INTO " + TABLE_SAVED_EQUATIONS + " VALUES (1, '20V = 10Ω * 2A')";
         db.execSQL(insert);
-        insert = "INSERT INTO " + getTableSavedEquations() + " VALUES (2, '120V = 30Ω * 4A')";
+        insert = "INSERT INTO " + TABLE_SAVED_EQUATIONS + " VALUES (2, '120V = 30Ω * 4A')";
         db.execSQL(insert);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + getTableSavedEquations());
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SAVED_EQUATIONS);
         onCreate(db);
 
     }
     public ArrayList<SolvedEquations> getEquations() {
+
         if (equationEntries.size() < 1){
 
-            String query = "SELECT * FROM " + getTableSavedEquations() + ";";
-
+            String query = "SELECT * FROM " + TABLE_SAVED_EQUATIONS + ";";
+            // Get database
             SQLiteDatabase db = getReadableDatabase();
-           // cursor point to a location in your results
+            // cursor point to a location in your results
             Cursor c = db.rawQuery(query, null);
             // move to the first row in your results
             c.moveToFirst();
             //Add tip objects to the tips array list
             while (!c.isAfterLast()) {
 
-                int id = c.getInt(getColumnIdCol());
-                String equation = c.getString(getColumnEquationCol());
+                int id = c.getInt(COLUMN_ID_COL);
+                String equation = c.getString(COLUMN_EQUATION_COL);
 
                 newEquation = new SolvedEquations(id, equation);
 
@@ -75,7 +72,7 @@ public class SolvedEquationsDB extends SQLiteOpenHelper{
         }else{
 
         }
-        return getEquationEntries();
+        return equationEntries;
     }
     //Turn array list elements into string
     public String getArray(ArrayList <SolvedEquations> t){
@@ -90,6 +87,7 @@ public class SolvedEquationsDB extends SQLiteOpenHelper{
         }
         return output;
     }
+
     //save the equation to the database
     public void saveEquation(String equation) {
        //create new object to add to the array list
@@ -98,7 +96,8 @@ public class SolvedEquationsDB extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
         //Insert equation data
 
-        String insert = "INSERT INTO " + TABLE_SAVED_EQUATIONS + " VALUES (" + entry + ", '" + equation + "');";
+        String insert = "INSERT INTO " + TABLE_SAVED_EQUATIONS +
+                "(" + COLUMN_EQUATION + ")" + " VALUES ('" + equation + "');";
         db.execSQL(insert);
         //increment entry number for later inserts
         entries++;
@@ -106,43 +105,13 @@ public class SolvedEquationsDB extends SQLiteOpenHelper{
         equationEntries.add(saveEquation);
         db.close();
     }
-    public static String getColumnId() {
-        return COLUMN_ID;
-    }
 
-    public static int getColumnIdCol() {
-        return COLUMN_ID_COL;
-    }
-
-    public static String getColumnEquation() {
-        return COLUMN_EQUATION;
-    }
-
-    public static int getColumnEquationCol() {
-        return COLUMN_EQUATION_COL;
-    }
-
-    public int getEntries() {
-        return entries;
-    }
-
-    public void setEntries(int entries) {
-        this.entries = entries;
-    }
-
-    public ArrayList<SolvedEquations> getEquationEntries() {
-        return equationEntries;
-    }
-
-    public void setEquationEntries(ArrayList<SolvedEquations> equationEntries) {
-        this.equationEntries = equationEntries;
-    }
-    public void deleteEquation(int selected){
+    public void deleteEquation(String selected){
         SQLiteDatabase db = getWritableDatabase();
-        SolvedEquations deleteEquation = new SolvedEquations();
-        String delete = "DELETE FROM " + TABLE_SAVED_EQUATIONS + " WHERE " + COLUMN_ID +
-                "=" + selected + ";";
+        String delete = "DELETE FROM " + TABLE_SAVED_EQUATIONS + " WHERE " + COLUMN_EQUATION +
+                "= '" + selected + "';";
         db.execSQL(delete);
         equationEntries.trimToSize();
+        entries--;
     }
 }

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Ohms Law Calculator</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="main_volt_message">V = Voltage Equations</string>
     <string name="voltage_label">V</string>
     <string name="title_activity_volts_equation_list">Voltage Equations</string>
@@ -14,6 +12,15 @@
     <string name="volt_equations_title">Select an Equation:</string>
     <string name="title_activity_solve_equation">Solve Equation</string>
     <string name="solve_equation">Enter Values to Solve Equation:</string>
+    <string name="title_activity_saved_equations">SavedEquations</string>
+    <string name="title_activity_solved_equations">SolvedEquations</string>
+    <string name="solved_equations_label">Solved Equations:</string>
+    <string name="view_saved_equation_button">View Saved Equations</string>
+    <string name="save_equation_button">Save Equation</string>
+    <string name="delete_equation">Delete Equation</string>
+    <string name="menu_about">About</string>
+    <string name="title_activity_about">About Activity</string>
+    <string name="about">This version of the Ohms Law Calculator allows for the use of the formulas for the ohms law triangle and power formulas. A Later version will include the ohms law wheel with more formulas</string>
 
     <!-- String arrays for spinner valuse -->
 
@@ -44,10 +51,5 @@
         <item>mW</item>
         <item>μW</item>
     </string-array>
-    <string name="title_activity_saved_equations">SavedEquations</string>
-    <string name="title_activity_solved_equations">SolvedEquations</string>
-    <string name="solved_equations_label">Solved Equations:</string>
-    <string name="view_saved_equation_button">View Saved Equations</string>
-    <string name="save_equation_button">Save Equation</string>
-    <string name="delete_equation">Delete Equation</string>
+
 </resources>

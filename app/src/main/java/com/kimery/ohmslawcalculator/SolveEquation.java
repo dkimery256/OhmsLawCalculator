@@ -1,8 +1,13 @@
 package com.kimery.ohmslawcalculator;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +37,12 @@ public class SolveEquation extends AppCompatActivity implements
     private EditText value2;
     private Button veiwSavedEquation;
     private Button saveEquation;
+    private boolean allSelected;
     SolvedEquationsDB dbHandler = new SolvedEquationsDB(this, null, null, 1);
+
+    //Build the object that will be the notification
+    NotificationCompat.Builder notify;
+    private static final int uniqueID = 7676; //the notification has to assigned a unique ID
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,11 @@ public class SolveEquation extends AppCompatActivity implements
         value2.setOnEditorActionListener(this);
         value2.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
+        //build new notification
+        notify = new NotificationCompat.Builder(this);
+        //remove notification once it has been visited
+        notify.setAutoCancel(true);
+
         //Get data from equation list class
         Bundle equationData = getIntent().getExtras();
         if(equationData == null){
@@ -75,23 +90,20 @@ public class SolveEquation extends AppCompatActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_solve_equation, menu);
+        getMenuInflater().inflate(R.menu.menu_about_ohms, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.menu_about:
+                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                return true;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
     //This method sets the values for operations with regular, millis, and micros
     public void setValues(String equation){
@@ -224,7 +236,7 @@ public class SolveEquation extends AppCompatActivity implements
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                boolean allSelected = false;
+                allSelected = false;
                 String firstValue;
                 String secondValue;
                 String update;
@@ -261,7 +273,6 @@ public class SolveEquation extends AppCompatActivity implements
                                update = volts + " = " + firstValue + spinnerItem1 + " x " +
                                        secondValue + spinnerItem2;
                                updateUI(update);
-                               allSelected = true;
                            }
                        }
                         break;
@@ -289,7 +300,6 @@ public class SolveEquation extends AppCompatActivity implements
                                 update = volts + " = " + firstValue + spinnerItem1 + " ÷ " +
                                         secondValue + spinnerItem2;
                                 updateUI(update);
-                                allSelected = true;
                             }
                         }
                         break;
@@ -317,7 +327,6 @@ public class SolveEquation extends AppCompatActivity implements
                                 update = volts + " = " + firstValue + spinnerItem1 + " x " +
                                         secondValue + spinnerItem2;
                                 updateUI(update);
-                                allSelected = true;
                             }
                         }
                         break;
@@ -345,7 +354,6 @@ public class SolveEquation extends AppCompatActivity implements
                                 update = ohms + " = " + firstValue + spinnerItem1 + " x " +
                                         secondValue + spinnerItem2;
                                 updateUI(update);
-                                allSelected = true;
                             }
                         }
                         break;
@@ -373,7 +381,6 @@ public class SolveEquation extends AppCompatActivity implements
                                 update = ohms + " = " + firstValue + spinnerItem1 + " ÷ " +
                                         secondValue + spinnerItem2;
                                 updateUI(update);
-                                allSelected = true;
                             }
                         }
                         break;
@@ -401,7 +408,6 @@ public class SolveEquation extends AppCompatActivity implements
                                 update = ohms + " = " + firstValue + spinnerItem1 + " ÷ " +
                                         secondValue + spinnerItem2;
                                 updateUI(update);
-                                allSelected = true;
                             }
                         }
                         break;
@@ -429,7 +435,6 @@ public class SolveEquation extends AppCompatActivity implements
                                 update = ohms + " = " + firstValue + spinnerItem1 + " ÷ " +
                                         secondValue + spinnerItem2;
                                 updateUI(update);
-                                allSelected = true;
                             }
                         }
                         break;
@@ -457,7 +462,6 @@ public class SolveEquation extends AppCompatActivity implements
                                 update = ohms + " = " + firstValue + spinnerItem1 + " ÷ " +
                                         secondValue + spinnerItem2;
                                 updateUI(update);
-                                allSelected = true;
                             }
                         }
                         break;
@@ -485,7 +489,6 @@ public class SolveEquation extends AppCompatActivity implements
                                 update = ohms + " = " + firstValue + spinnerItem1 + " ÷ " +
                                         secondValue + spinnerItem2;
                                 updateUI(update);
-                                allSelected = true;
                             }
                         }
                         break;
@@ -669,15 +672,46 @@ public class SolveEquation extends AppCompatActivity implements
         // Do nothing
     }
     //Call the data base save equation method
+
     public void saveEquation(View view) {
+        allSelected = true;
         String savedEquation = equationView.getText().toString();
         dbHandler.getEquations();
         dbHandler.saveEquation(savedEquation);
         Toast.makeText(getApplicationContext(), "Equation Saved", Toast.LENGTH_SHORT).show();
+        notifyEquationSaved();
     }
 
     public void viewSavedEquations(View view) {
+        allSelected = true;
         Intent i = new Intent(this, SolvedEquations.class);
+        startActivity(i);
+    }
+    //Notification for a saved equation
+    public void notifyEquationSaved(){
+        notify.setSmallIcon(R.mipmap.ic_launcher);
+        notify.setTicker("Equation Saved");
+        notify.setWhen(System.currentTimeMillis());
+        notify.setContentTitle("Ohms Law Calculator");
+        notify.setContentText("An Equation has been saved to the Database");
+
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        notify.setSound(alarmSound);
+
+        //send the notify to the home screen
+        Intent i = new Intent(this, SolvedEquations.class);
+        //give the device access to perform this intent by calling pending intent
+        PendingIntent pi = PendingIntent.getActivity(this, 0 , i , PendingIntent.FLAG_UPDATE_CURRENT);
+        notify.setContentIntent(pi);
+
+        //send out the notification
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(uniqueID, notify.build());
+    }
+    @Override
+    public void onBackPressed(){
+        allSelected = true;
+        Intent i = new Intent(this, OhmsMain.class);
         startActivity(i);
     }
 }

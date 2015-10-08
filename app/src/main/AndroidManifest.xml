@@ -27,7 +27,12 @@
         </activity>
         <activity
             android:name=".SolvedEquations"
-            android:label="@string/title_activity_solved_equations">
+            android:label="@string/title_activity_solved_equations" >
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/DialogTheme" >
         </activity>
     </application>
 
